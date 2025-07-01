@@ -1,28 +1,43 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { FoodsWithCategories } from "./FoodsWithCategories";
+import { Category } from "@/types/types";
 
-const categories = [
-  {
-    categoryName: "categoryName1",
-    _id: 1,
-  },
-  {
-    categoryName: "categoryName2",
-    _id: 2,
-  },
-  {
-    categoryName: "categoryName3",
-    _id: 3,
-  },
+// const categories = [
+//   {
+//     categoryName: "categoryName1",
+//     _id: 1,
+//   },
+//   {
+//     categoryName: "categoryName2",
+//     _id: 2,
+//   },
+//   {
+//     categoryName: "categoryName3",
+//     _id: 3,
+//   },
 
-  {
-    categoryName: "categoryName4",
-    _id: 4,
-  },
-];
+//   {
+//     categoryName: "categoryName4",
+//     _id: 4,
+//   },
+// ];
 
 export const FoodCategories = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+
+  useEffect(() => {
+    const getCatgories = async () => {
+      const response = await fetch("http://localhost:4200/category");
+      const data = await response.json();
+
+      console.log(data);
+      setCategories(data.categories);
+    };
+    getCatgories();
+  }, []);
   if (!categories.length)
     return <p className="text-white">No categories found</p>;
 
