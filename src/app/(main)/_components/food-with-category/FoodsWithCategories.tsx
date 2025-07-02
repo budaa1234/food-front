@@ -50,7 +50,7 @@ export const FoodsWithCategories = () => {
       const data = await response.json();
 
       console.log(data);
-      setFoodWithCategories(data.FoodsWithCategories);
+      setFoodWithCategories(data.foods);
     };
     FoodWithCategories();
   }, []);

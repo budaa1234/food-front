@@ -12,18 +12,15 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { useState } from "react";
+import {  Food } from "@/types/types";
 
 type FoodDetailModalProps = {
-  food: never;
+  food: Food;
   isModalOpen: boolean;
   onToggleModal: () => void;
 };
 
-export const FoodDetailModal = ({
-  food,
-  isModalOpen,
-  onToggleModal,
-}: FoodDetailModalProps) => {
+export const FoodDetailModal = ({food,isModalOpen,onToggleModal,}: FoodDetailModalProps) => {
   const [quantity, setQuantity] = useState<number>(1);
   const { foodName, image, ingredients, price } = food;
 
@@ -80,7 +77,7 @@ export const FoodDetailModal = ({
                     Total price:
                   </p>
                   <div className="text-lg font-semibold text-[#09090B]">
-                    <p>${price}</p>
+                    <p>{price * quantity}</p>
                   </div>
                 </div>
                 <div className="flex w-[121px] justify-around">

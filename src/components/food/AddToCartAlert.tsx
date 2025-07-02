@@ -10,10 +10,7 @@ type AddToCartAlertProps = {
   onHide?: () => void;
 };
 
-export const AddToCartAlert = ({
-  isVisible = false,
-  onHide,
-}: AddToCartAlertProps) => {
+export const AddToCartAlert = ({isVisible = false,onHide,}: AddToCartAlertProps) => {
   const [show, setShow] = useState(isVisible);
 
   useEffect(() => {
