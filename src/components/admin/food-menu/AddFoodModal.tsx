@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, useState } from "react";
 import { ImageUploader } from "./ImageUploader";
+import { toast } from "sonner";
 
 type AddFoodModalProps = {
   categoryName: string;
@@ -26,14 +27,17 @@ type FoodInfo = {
   category: string;
 };
 
-export const AddFoodModal = ({ categoryName,categoryId,}: AddFoodModalProps) => {
-  
+export const AddFoodModal = ({
+  categoryName,
+  categoryId,
+}: AddFoodModalProps) => {
   const [uploadedImage, setUploadedImage] = useState<File>();
 
   const [foodInfo, setFoodInfo] = useState<FoodInfo>({
     foodName: "",
     price: "",
-    image: "",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4SHZAmRkigE9wfGHpTvX8D6szEeuo6eZXg&s",
     ingredients: "",
     category: categoryId,
   });
@@ -50,13 +54,34 @@ export const AddFoodModal = ({ categoryName,categoryId,}: AddFoodModalProps) => 
   };
 
   const handleCreateFood = async () => {
-    setFoodInfo({
-      foodName: "",
-      price: "",
-      image: "",
-      ingredients: "",
-      category: categoryId,
-    });
+    try {
+      const response = await fetch("http://localhost:4200/food", {
+        method: "POST",
+        body: JSON.stringify({ foodInfo }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("failed to create category");
+      }
+      const category = await response.json();
+
+      setFoodInfo({
+        foodName: "",
+        price: "",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4SHZAmRkigE9wfGHpTvX8D6szEeuo6eZXg&s",
+        ingredients: "",
+        category: categoryId,
+      });
+      toast.success(
+        `Category ${category.foodCategory.categoryName} created successfully`
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {

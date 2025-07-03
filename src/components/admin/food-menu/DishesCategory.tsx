@@ -21,20 +21,20 @@ export const DishesCategory = () => {
 
   useEffect(() => {
     const FoodWithCategories = async () => {
-      const response = await fetch("http://localhost:4200/food");
+      const response = await fetch("http://localhost:4200/category");
       const data = await response.json();
 
       console.log(data);
-      setFoodWithCategories(data.foods);
+      setFoodWithCategories(data.categories);
     };
     FoodWithCategories();
   }, []);
-  if (!foodWithCategories) return null;
+  
 
   if (!foodWithCategories.length) return <DishesCategorySkeleton />;
 
   const allDishesCount = foodWithCategories.reduce(
-    (acc, category) => acc + category.count, 0
+    (acc, category) => acc + category.count, 1
   );
 
   return (
