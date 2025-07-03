@@ -2,6 +2,7 @@ export type Category = {
   categoryName: string;
   createdAt: string;
   updatedAt: string;
+  count: number
   __v: number;
   _id: string;
   foods: Food[]

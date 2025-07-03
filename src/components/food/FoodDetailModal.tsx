@@ -23,6 +23,7 @@ type FoodDetailModalProps = {
 export const FoodDetailModal = ({food,isModalOpen,onToggleModal,}: FoodDetailModalProps) => {
   const [quantity, setQuantity] = useState<number>(1);
   const { foodName, image, ingredients, price } = food;
+  
 
   const addQuantity = () => {
     setQuantity((prev) => prev + 1);

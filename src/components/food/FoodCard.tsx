@@ -75,6 +75,7 @@ export const FoodCard = ({
       </div>
       <FoodDetailModal
         food={food}
+        
         isModalOpen={isModalOpen}
         onToggleModal={onToggleModal}
       />

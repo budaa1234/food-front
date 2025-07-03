@@ -44,9 +44,7 @@ export const FoodsWithCategories = () => {
 
   useEffect(() => {
     const FoodWithCategories = async () => {
-      const response = await fetch(
-        "http://localhost:4200/food"
-      );
+      const response = await fetch("http://localhost:4200/food");
       const data = await response.json();
 
       console.log(data);

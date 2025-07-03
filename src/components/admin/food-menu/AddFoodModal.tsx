@@ -26,10 +26,8 @@ type FoodInfo = {
   category: string;
 };
 
-export const AddFoodModal = ({
-  categoryName,
-  categoryId,
-}: AddFoodModalProps) => {
+export const AddFoodModal = ({ categoryName,categoryId,}: AddFoodModalProps) => {
+  
   const [uploadedImage, setUploadedImage] = useState<File>();
 
   const [foodInfo, setFoodInfo] = useState<FoodInfo>({
