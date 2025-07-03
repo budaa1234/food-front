@@ -16,25 +16,24 @@ export type CategoryWithCount = {
 //   },
 // ];
 export const DishesCategory = () => {
-  const [categories, setCategories] = useState<CategoryWithCount[]>([]);
-  
-  
-    useEffect(() => {
-      const getCatgories = async () => {
-        const response = await fetch("http://localhost:4200/category");
-        const data = await response.json();
-  
-        console.log(data);
-        setCategories(data.categories);
-      };
-      getCatgories();
-    }, []);
+  const [foodWithCategories, setFoodWithCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const FoodWithCategories = async () => {
+      const response = await fetch("http://localhost:4200/food");
+      const data = await response.json();
+
+      console.log(data);
+      setFoodWithCategories(data.foods);
+    };
+    FoodWithCategories();
+  }, []);
+  if (!foodWithCategories) return null;
 
   if (!categories.length) return <DishesCategorySkeleton />;
 
-  const allDishesCount = categories.reduce(
-    (acc, category) => acc + category.count,
-    0
+  const allDishesCount = foodWithCategories.reduce(
+    (acc, category) => acc + category.count, 0
   );
 
   return (

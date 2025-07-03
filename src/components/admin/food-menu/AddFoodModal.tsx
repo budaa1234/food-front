@@ -27,14 +27,16 @@ type FoodInfo = {
   category: string;
 };
 
-export const AddFoodModal = ({ categoryName,categoryId,}: AddFoodModalProps) => {
-  
+export const AddFoodModal = ({
+  categoryName,
+  categoryId,
+}: AddFoodModalProps) => {
   const [uploadedImage, setUploadedImage] = useState<File>();
 
   const [foodInfo, setFoodInfo] = useState<FoodInfo>({
     foodName: "",
     price: "",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4SHZAmRkigE9wfGHpTvX8D6szEeuo6eZXg&s",
+    image: "",
     ingredients: "",
     category: categoryId,
   });
@@ -51,34 +53,13 @@ export const AddFoodModal = ({ categoryName,categoryId,}: AddFoodModalProps) => 
   };
 
   const handleCreateFood = async () => {
-    try {
-      const response = await fetch("http://localhost:4200/food", {
-        method: "POST",
-        body: JSON.stringify(foodInfo),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create food");
-      }
-
-      const categories = await response.json();
     setFoodInfo({
       foodName: "",
       price: "",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4SHZAmRkigE9wfGHpTvX8D6szEeuo6eZXg&s",
+      image: "",
       ingredients: "",
       category: categoryId,
     });
-    toast.success(
-        `Food ${categories.categories.foods} created successfully`
-      );
-    } catch (error) {
-      console.log(error);
-      ;
-    }
   };
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {

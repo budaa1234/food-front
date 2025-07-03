@@ -33,6 +33,7 @@ export const AdminFoodsSection = () => {
       };
       FoodWithCategories();
     }, []);
+  if (!foodWithCategories) return null;
 
   if (!foodWithCategories.length) return <AdminFoodSkeleton />;
 

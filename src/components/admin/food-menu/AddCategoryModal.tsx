@@ -39,7 +39,6 @@ export const AddCategoryModal = () => {
       )
     }catch(error){
       console.log(error);
-      
     }
     
   };
