@@ -21,7 +21,7 @@ export type FoodCategory = {
 };
 
 export const AdminFoodsSection = () => {
-  const [foodWithCategories, setFoodWithCategories] = useState<Category[]>([]);
+  const [foodWithCategories, setFoodWithCategories] = useState<FoodCategory[]>([]);
   
     useEffect(() => {
       const FoodWithCategories = async () => {

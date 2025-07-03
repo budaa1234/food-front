@@ -15,26 +15,27 @@ export type CategoryWithCount = {
 //     count: 2,
 //   },
 // ];
-
 export const DishesCategory = () => {
-  const [foodWithCategories, setFoodWithCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryWithCount[]>([]);
+  
+  
+    useEffect(() => {
+      const getCatgories = async () => {
+        const response = await fetch("http://localhost:4200/category");
+        const data = await response.json();
+  
+        console.log(data);
+        setCategories(data.categories);
+      };
+      getCatgories();
+    }, []);
+  if (!categories) return null;
 
-  useEffect(() => {
-    const FoodWithCategories = async () => {
-      const response = await fetch("http://localhost:4200/food");
-      const data = await response.json();
+  if (!categories.length) return <DishesCategorySkeleton />;
 
-      console.log(data);
-      setFoodWithCategories(data.foods);
-    };
-    FoodWithCategories();
-  }, []);
-  if (!foodWithCategories) return null;
-
-  if (!foodWithCategories.length) return <DishesCategorySkeleton />;
-
-  const allDishesCount = foodWithCategories.reduce(
-    (acc, category) => acc + category.count, 0
+  const allDishesCount = categories.reduce(
+    (acc, category) => acc + category.count,
+    0
   );
 
   return (
@@ -47,7 +48,7 @@ export const DishesCategory = () => {
             {allDishesCount}
           </p>
         </div>
-        {foodWithCategories?.map((category, index) => (
+        {categories?.map((category, index) => (
           <div key={index} className="flex gap-2 px-4 py-2 border rounded-full">
             <p className="text-sm font-medium">{category?.categoryName}</p>
             <p className="text-xs bg-black text-white rounded-full px-[10px] py-[2px] flex items-center font-semibold leading-4x">
