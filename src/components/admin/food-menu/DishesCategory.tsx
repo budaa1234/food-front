@@ -29,7 +29,6 @@ export const DishesCategory = () => {
       };
       getCatgories();
     }, []);
-  if (!categories) return null;
 
   if (!categories.length) return <DishesCategorySkeleton />;
 
