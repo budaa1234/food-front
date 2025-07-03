@@ -36,7 +36,7 @@ export const AddFoodModal = ({
   const [foodInfo, setFoodInfo] = useState<FoodInfo>({
     foodName: "",
     price: "",
-    image: "",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4SHZAmRkigE9wfGHpTvX8D6szEeuo6eZXg&s",
     ingredients: "",
     category: categoryId,
   });
@@ -53,13 +53,36 @@ export const AddFoodModal = ({
   };
 
   const handleCreateFood = async () => {
+     try{
+      const response = await fetch("http://localhost:4200/food", {
+        method: "POST",
+        body: JSON.stringify(foodInfo),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8", 
+        }
+      })
+
+      if(!response.ok){
+        throw new Error("failed to create category")
+      }
+
+      const category = await response.json()
+
+
+
+      toast.success(
+        `Category ${category.foodCategory.categoryName} created successfully`
+      )
     setFoodInfo({
       foodName: "",
       price: "",
-      image: "",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4SHZAmRkigE9wfGHpTvX8D6szEeuo6eZXg&s",
       ingredients: "",
       category: categoryId,
     });
+    }catch(error){
+      console.log(error);
+    }
   };
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
