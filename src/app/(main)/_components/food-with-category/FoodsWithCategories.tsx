@@ -47,7 +47,7 @@ export const FoodsWithCategories = () => {
       const response = await fetch("http://localhost:4200/food");
       const data = await response.json();
 
-      console.log(data);
+
       setFoodWithCategories(data.foods);
     };
     FoodWithCategories();
