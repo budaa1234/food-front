@@ -13,7 +13,7 @@ export type Food = {
   price: number;
   image: string;
   ingredients: string;
-  category: string;
+  category: Category;
   createdAt: string;
   updatedAt: string;
   count: number

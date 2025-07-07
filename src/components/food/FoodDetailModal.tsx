@@ -15,7 +15,7 @@ import { useState } from "react";
 import {  Food } from "@/types/types";
 
 type FoodDetailModalProps = {
-  food: Food;
+food: Pick<Food, '_id' | 'foodName' | 'price' | 'image' | 'ingredients'>;
   isModalOpen: boolean;
   onToggleModal: () => void;
 };

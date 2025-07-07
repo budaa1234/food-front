@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AddCategoryModal } from "./AddCategoryModal";
 import { DishesCategorySkeleton } from "./DishesCategorySkeleton";
-import { Category } from "@/types/types";
+
 
 export type CategoryWithCount = {
   categoryName: string;

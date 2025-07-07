@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OrderSheetEmptyCard } from "./OrderSheetEmptyCard";
 import { OrderSheetFoodItem } from "./OrderSheetFoodItem";
-import { useEffect, useState } from "react";
+
 
 export const cartData = [
   {
@@ -23,10 +23,7 @@ export const cartData = [
 ];
 
 export const OrderSheetCart = () => {
-  const [cartData, setCartData]=useState([])
-  useEffect(()=>{
-    
-  }, [])
+ 
 
   const renderFoodCard = () => {
     if (cartData?.length) {

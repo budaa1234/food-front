@@ -63,7 +63,7 @@ export const AddFoodModal = ({
       })
 
       if(!response.ok){
-        throw new Error("failed to create category")
+        throw new Error("failed to create food")
       }
 
       const category = await response.json()
@@ -71,7 +71,7 @@ export const AddFoodModal = ({
 
 
       toast.success(
-        `Category ${category.foodCategory.categoryName} created successfully`
+        `Food ${category.foodCategory.categoryName} created successfully`
       )
     setFoodInfo({
       foodName: "",
