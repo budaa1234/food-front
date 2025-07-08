@@ -1,14 +1,25 @@
 import { SidebarDashLine } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { Food } from "@/types/types";
+import { FoodType } from "@/constants/food";
+
 
 import { CircleX, Minus, Plus } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 type OrderSheetFoodItemProps = {
-  food: Food;
+  food: FoodType;
   quantity: number
 }
-export const OrderSheetFoodItem = ({ food, quantity }:OrderSheetFoodItemProps ) => {
+export const OrderSheetFoodItem = ({ food,  quantity}:OrderSheetFoodItemProps ) => {
+  const [quantit, setQuantity] = useState<number>(1);
+  const addQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const subtractQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+  };
+
   return (
     <>
       <div className="flex gap-3">
@@ -40,13 +51,13 @@ export const OrderSheetFoodItem = ({ food, quantity }:OrderSheetFoodItemProps ) 
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Button variant="ghost">
+              <Button onClick={subtractQuantity} variant="ghost">
                 <Minus />
               </Button>
 
               <div className="text-lg font-semibold">{quantity}</div>
 
-              <Button variant="ghost">
+              <Button onClick={addQuantity} variant="ghost">
                 <Plus />
               </Button>
             </div>

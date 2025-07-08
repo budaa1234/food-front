@@ -1,7 +1,7 @@
 "use client";
 
 import { FoodCard } from "@/components/food";
-import {  Category } from "@/types/types";
+import { Category } from "@/types/types";
 import { useEffect, useState } from "react";
 
 // export const foodWithCategories = [
@@ -47,12 +47,11 @@ export const FoodsWithCategories = () => {
       const response = await fetch("http://localhost:4200/food");
       const data = await response.json();
 
-
       setFoodWithCategories(data.foods);
     };
     FoodWithCategories();
   }, []);
-  
+
   if (!foodWithCategories?.length) return null;
 
   const nonEmptyCategories = foodWithCategories.filter(
@@ -70,13 +69,7 @@ export const FoodsWithCategories = () => {
             {category?.foods.map((food) => {
               return (
                 <div key={food?._id}>
-                  <FoodCard
-                    foodName={food?.foodName}
-                    price={food?.price}
-                    image={food?.image}
-                    ingredients={food?.ingredients}
-                    _id={food?._id}
-                  />
+                  <FoodCard food={food} />
                 </div>
               );
             })}
