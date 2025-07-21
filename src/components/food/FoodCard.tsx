@@ -14,8 +14,7 @@ type FoodCardProps = {
   food: FoodType;
 };
 
-export const FoodCard = ({ food }: FoodCardProps) => {
-  const { foodName, image, ingredients, price } = food;
+export const FoodCard = ({ food }: FoodCardProps) => { const { foodName, image, ingredients, price } = food;
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
