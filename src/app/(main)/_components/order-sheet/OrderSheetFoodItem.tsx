@@ -1,24 +1,22 @@
 import { SidebarDashLine } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { FoodType } from "@/constants/food";
-
+import { useFoodCart } from "@/providers/foodCard";
 
 import { CircleX, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 type OrderSheetFoodItemProps = {
   food: FoodType;
-  quantity: number
-}
-export const OrderSheetFoodItem = ({ food,  quantity}:OrderSheetFoodItemProps ) => {
-  const [quantit, setQuantity] = useState<number>(1);
-  const addQuantity = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const subtractQuantity = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
-  };
+  quantity: number;
+  totalPrice: number
+};
+export const OrderSheetFoodItem = ({
+  food,
+  quantity,
+  totalPrice
+}: OrderSheetFoodItemProps) => {
+  const { incrementFoodQuantity, decrimentFoodQuantity , removeFromCart } = useFoodCart();
 
   return (
     <>
@@ -42,6 +40,7 @@ export const OrderSheetFoodItem = ({ food,  quantity}:OrderSheetFoodItemProps ) 
               </div>
             </div>
             <CircleX
+             onClick={() => removeFromCart(food._id)}
               strokeWidth={0.5}
               size={50}
               color="red"
@@ -51,18 +50,24 @@ export const OrderSheetFoodItem = ({ food,  quantity}:OrderSheetFoodItemProps ) 
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Button onClick={subtractQuantity} variant="ghost">
+              <Button
+                onClick={() => decrimentFoodQuantity(food._id)}
+                variant="ghost"
+              >
                 <Minus />
               </Button>
 
               <div className="text-lg font-semibold">{quantity}</div>
 
-              <Button onClick={addQuantity} variant="ghost">
+              <Button
+                onClick={() => incrementFoodQuantity(food._id)}
+                variant="ghost"
+              >
                 <Plus />
               </Button>
             </div>
 
-            <h4 className="font-bold">{food.price * quantity}</h4>
+            <h4 className="font-bold">{totalPrice}</h4>
           </div>
         </div>
       </div>
