@@ -47,6 +47,8 @@ export const OrderSheetOrders = () => {
       console.log(data);
 
       setOrders(data.foodOrder);
+      console.log(data.foodOrder);
+      
     };
     getCatgories();
   }, []);

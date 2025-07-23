@@ -9,7 +9,7 @@ export const OrderSheetOrderItem = (props: Order) => {
         <h4 className="font-bold">{props.totalPrice}(#20156)</h4>
 
         <Badge variant="outline" className="border-red-500 rounded-full">
-          Delivered
+         {props.status}
         </Badge>
       </div>
 
