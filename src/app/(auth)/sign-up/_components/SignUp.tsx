@@ -10,8 +10,8 @@ export const Signup = () => {
 
   const StepComponents = [
     <SignUpEmailBox key={0} />,
-    <SignUpPasswordBox key={1} />,
+    // <SignUpPasswordBox key={1} />,
   ];
 
-  return StepComponents;
+  return SignUpEmailBox;
 };

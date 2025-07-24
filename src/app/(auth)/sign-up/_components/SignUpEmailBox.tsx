@@ -5,25 +5,27 @@ import { DynamicCardHeader } from "@/components/card";
 import { Card, CardContent } from "@/components/ui/card";
 import { FormInput } from "../../../../components/dynamic-inputs";
 import { SignUpFooter } from "./SignUpFooter";
+import {useFormik} from "formik"
 
 type EmailBoxProps = {
-  values: { email: string };
-  errors: { email?: string };
-  touched: { email?: boolean };
-  handleChange: (_event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur: (_event: React.FocusEvent<HTMLInputElement>) => void;
+ 
   handleNext: () => void;
 };
 
-export const SignUpEmailBox = ({
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  handleNext,
-}: EmailBoxProps) => {
-  const formError = touched.email && errors.email;
+export const SignUpEmailBox = ({handleNext,}: EmailBoxProps) => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      
+    }
+  })
+
+  const {values, handleChange, handleBlur, touched, errors} = formik
+
+const formError = touched.email && errors.email;
 
   const emailInputProps = {
     name: "email",

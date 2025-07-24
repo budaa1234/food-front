@@ -2,10 +2,10 @@ import { SidebarDashLine } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { FoodType } from "@/constants/food";
 import { useFoodCart } from "@/providers/foodCard";
-
 import { CircleX, Minus, Plus } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+
+
 type OrderSheetFoodItemProps = {
   food: FoodType;
   quantity: number;
