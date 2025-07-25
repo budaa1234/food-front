@@ -13,7 +13,7 @@ import { useContext } from "react";
 
 export const OrderSheetPayment = ({ openModal }: { openModal: () => void }) => {
   const { foodCart } = useContext(FoodCartContext);
-  console.log("Payment order:", foodCart);
+  console.log("Pay", foodCart);
 
   if (!foodCart.length) return;
 
