@@ -5,7 +5,8 @@ type FormInputProps = {
   inputError?: string | false;
   name: string;
   placeholder: string;
-};
+} & React.InputHTMLAttributes<HTMLInputElement>; // 👈 энэ нэмэгдсэн
+
 export const FormInput = ({
   inputErrorMessage,
   inputError = false,
@@ -22,7 +23,7 @@ export const FormInput = ({
         name={name}
         placeholder={placeholder}
         className={inputBorderErrorStyle}
-        {...props}
+        {...props} // 👈 эндээс type, value, onChange, onBlur бүгд явна
       />
       {inputError && (
         <span className="text-sm text-red-500">{inputErrorMessage}</span>

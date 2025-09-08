@@ -5,7 +5,6 @@ import { useFoodCart } from "@/providers/foodCard";
 
 export const OrderSheetCart = () => {
   const { foodCart } = useFoodCart();
-  console.log("foodcart", foodCart);
 
   const renderFoodCard = () => {
     if (!foodCart?.length) {

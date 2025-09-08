@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OrderSheet, OrderSheetOrderItem } from ".";
 import { useEffect, useState } from "react";
+import { useUser } from "@/providers/userProvider";
 
 type Food = {
   _id: string;
@@ -36,24 +37,27 @@ type OrderResponse = {
 
 export const OrderSheetOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const { user } = useUser();
+  console.log(user?._id)
+
   useEffect(() => {
-    const getCatgories = async () => {
-      const response = await fetch(
-        "http://localhost:4200/food-order/user/688056a64de455ef33ab0ce1"
-      );
+    if (!user?._id) return;
 
-      const data = (await response.json()) as OrderResponse;
-
-      console.log(data);
-
-      setOrders(data.foodOrder);
-      console.log(data.foodOrder);
-      
+    const getOrders = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:4200/food-order/${user?._id}`
+        );
+        const data = (await response.json()) as OrderResponse;
+        setOrders(data.foodOrder);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    getCatgories();
-  }, []);
 
-  console.log(orders?.[0]);
+    getOrders();
+  }, [user]);
+
   return (
     <Card className="h-[87%]">
       <CardHeader className="p-4 ">
@@ -61,7 +65,7 @@ export const OrderSheetOrders = () => {
       </CardHeader>
 
       <CardContent className="p-4">
-        {orders.map((order) => {
+        {orders?.map((order) => {
           return <OrderSheetOrderItem key={order._id} {...order} />;
         })}
       </CardContent>

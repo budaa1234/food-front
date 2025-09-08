@@ -19,3 +19,25 @@ export type Food = {
   count: number
   __v: number;
 };
+export type FoodOrderItem = {
+  _id: string;             // Mongoose ObjectId
+  food: string;            // Food-ийн ObjectId
+  quantity: number;
+  price: number;
+};
+
+export enum FoodOrderStatusEnum {
+  PENDING = "PENDING",
+  CANCELED = "CANCELED",
+  DELIVERED = "DELIVERED",
+}
+
+export type Order = {
+  _id: string;                 // Mongoose ObjectId
+  user: string;                // User-ийн ObjectId
+  totalPrice: number;
+  foodOrderItems: FoodOrderItem[];
+  status: FoodOrderStatusEnum;
+  createdAt: string;           // ISO string
+  updatedAt: string;           // ISO string
+};

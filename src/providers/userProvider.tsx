@@ -1,58 +1,65 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 export type UserType = {
   userId: string;
   email: string;
   role: string;
+  _id: string
 };
 
 type UserContextType = {
-  user: UserType;
+  user: UserType | null;
+  loading: boolean;
+  error: string | null;
+  setUser: (user: UserType | null) => void;
 };
 
-export const UserContext = createContext<UserContextType>(
-  {} as UserContextType
-);
+export const UserContext = createContext<UserContextType>({
+  user: null,
+  loading: true,
+  error: null,
+  setUser: () => {},
+});
 
-export default function UserContextProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [user, setUser] = useState<UserType>({} as UserType);
+export default function UserContextProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<UserType | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTQ0NDEwMjYsImRhdGEiOnsidXNlcklkIjoiNjg5Mjk3MTcxMmU0M2VlZTc0MzAyNDVlIiwicm9sZSI6IlVTRVIiLCJlbWFpbCI6InRlc3QxMjNAZ21haWwuY29tIn0sImlhdCI6MTc1NDQzNzQyNn0.YGMfvl4BmtHMPMz1fbdPmfDIMviT_xRl3-YEsY924cs";
-    const getCurrentUser = async () => {
-      const userData = await getCurrentUserByAccessToken(accessToken);
-      console.log("userData", userData);
-      setUser(userData);
+    const token = localStorage.getItem("accessToken"); 
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchCurrentUser = async () => {
+      try {
+        const res = await fetch("http://localhost:4200/user/get-current-user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch user");
+
+        const data: UserType = await res.json();
+        setUser(data);
+      } catch (err: any) {
+        console.error(err);
+        setError(err.message || "Error fetching user");
+      } finally {
+        setLoading(false);
+      }
     };
-    getCurrentUser();
+
+    fetchCurrentUser();
   }, []);
 
-  const getCurrentUserByAccessToken = async (accessToken: string) => {
-    try {
-      const response = await fetch(
-        "http://localhost:4200/user/get-current-user",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser, loading, error }}>
+      {children}
+    </UserContext.Provider>
   );
 }
 

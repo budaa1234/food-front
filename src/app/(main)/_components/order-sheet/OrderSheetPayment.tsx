@@ -10,10 +10,11 @@ import { SidebarDashLine } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { FoodCartContext } from "@/providers/foodCard";
 import { useContext } from "react";
+import { useUser } from "@/providers/userProvider";
 
 export const OrderSheetPayment = ({ openModal }: { openModal: () => void }) => {
   const { foodCart } = useContext(FoodCartContext);
-  console.log("Pay", foodCart);
+  const {user}= useUser()
 
   if (!foodCart.length) return;
 
@@ -23,7 +24,7 @@ export const OrderSheetPayment = ({ openModal }: { openModal: () => void }) => {
   const totalPrice = priceCalculate.reduce((acc, curr) => acc + curr, 0);
 
   const handleCreateOrder = async () => {
-    const response = await fetch("http://localhost:4200/food-order", {
+    const response = await fetch(`http://localhost:4200/food-order/${user?.userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +32,6 @@ export const OrderSheetPayment = ({ openModal }: { openModal: () => void }) => {
       body: JSON.stringify({
         foodOrderItems: foodCart,
         totalPrice: totalPrice,
-        user: "6880752fdb2d593ea8aa485f",
       }),
       
     });

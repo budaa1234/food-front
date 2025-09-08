@@ -3,10 +3,11 @@ import { Map, Soup, Timer } from "lucide-react";
 import { Order } from "./OrderSheetOrders";
 
 export const OrderSheetOrderItem = (props: Order) => {
+  
   return (
     <div className="space-y-3">
       <div className="flex item-center justify-between">
-        <h4 className="font-bold">{props.totalPrice}(#20156)</h4>
+        <h4 className="font-bold">{props.totalPrice}</h4>
 
         <Badge variant="outline" className="border-red-500 rounded-full">
          {props.status}

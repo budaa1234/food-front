@@ -9,7 +9,7 @@ type UserToolbarProps = {
 
 export const UserToolbar = ({ openSidebar }: UserToolbarProps) => {
   const { user } = useUser();
-  console.log(user);
+
   
 
   return (
